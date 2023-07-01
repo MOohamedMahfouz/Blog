@@ -39,5 +39,7 @@ Route::post('newsletter',NewsletterController::class);
 
 Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']);
 
-
+Route::fallback(function () {
+    return redirect()->route('search');
+});
 
