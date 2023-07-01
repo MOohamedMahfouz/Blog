@@ -30,7 +30,7 @@ Route::controller(PostController::class) -> group(function(){
     Route::get('/','search')->name('search');
     Route::get('/posts/{post:slug}','show')->name('view-post')
     ->missing(function () {
-        return redirect()->route('search');
+        return to_route('search');
     });
 });
 
@@ -40,6 +40,6 @@ Route::post('newsletter',NewsletterController::class);
 Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']);
 
 Route::fallback(function () {
-    return redirect()->route('search');
+    return to_route('search');
 });
 
