@@ -33,12 +33,15 @@ Route::post('newsletter',NewsletterController::class);
 Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']);
 
 
-Route::controller(AdminPostController::class) -> group(function(){
-    Route::get('admin/posts/','index')->name('view-admin-post')->middleware('admin');
-    Route::get('admin/posts/create','create')->name('create-admin-post')->middleware('admin');
-    Route::post('admin/posts','store')->name('store-admin-post')->middleware('admin');
-    Route::patch('admin/posts/{post:slug}','update')->name('update-admin-post')->middleware('admin');
-    Route::delete('admin/posts/{post:slug}','destroy')->name('delete-admin-post')->middleware('admin');
-    Route::get('admin/posts/{post:slug}/edit','edit')->name('edit-admin-post')->middleware('admin');
+Route::group(['middleware' => 'admin'],function() {
+    Route::controller(AdminPostController::class) -> group(function(){
+        Route::get('admin/posts/','index')->name('view-admin-post');
+        Route::get('admin/posts/create','create')->name('create-admin-post');
+        Route::post('admin/posts','store')->name('store-admin-post');
+        Route::patch('admin/posts/{post:slug}','update')->name('update-admin-post');
+        Route::delete('admin/posts/{post:slug}','destroy')->name('delete-admin-post');
+        Route::get('admin/posts/{post:slug}/edit','edit')->name('edit-admin-post');
+    });
 });
+
 
