@@ -28,7 +28,10 @@ Auth::routes();
 
 Route::controller(PostController::class) -> group(function(){
     Route::get('/','search')->name('search');
-    Route::get('/posts/{slug}','show')->name('view-post');
+    Route::get('/posts/{post:slug}','show')->name('view-post')
+    ->missing(function () {
+        return redirect()->route('search');
+    });
 });
 
 

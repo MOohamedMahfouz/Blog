@@ -88,7 +88,7 @@ class AdminPostController extends Controller
 
         $post->tags()->sync($tags_id);
 
-        return to_route('view-post',$post->slug);
+        return to_route('view-post',$post);
     }
 
     public function destroy(Post $post)

@@ -11,7 +11,7 @@
             <a href="#" class="text-blue-700 text-sm font-bold uppercase pb-4">{{ $post->category->name }}</a>
             <div class="justify-between space-x-2.5">
                 @foreach ($post->tags as $tag)
-                <a href="{{route('view-post',['slug' =>$post -> slug])}}" class="text-red-500 text-sm font-bold uppercase pb-4">#{{$tag->name}}</a>
+                <a href="{{route('view-post',$post)}}" class="text-red-500 text-sm font-bold uppercase pb-4">#{{$tag->name}}</a>
                 @endforeach
             </div>
             <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>

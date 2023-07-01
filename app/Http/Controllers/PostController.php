@@ -14,9 +14,9 @@ class PostController extends Controller
             'categories' => Category::all(),
         ]);
     }
-    public function show($slug)
+    public function show(Post $post)
     {
-        $post = Post::findBySlugOrFail($slug);
+// $post = Post::findBySlugOrFail($slug);
         return view('posts.post',['post' => $post]);
     }
 }
