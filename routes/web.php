@@ -1,9 +1,14 @@
 <?php
 
-use App\Http\Controllers\AdminPostController;
-use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\PostCommentsController;
-use App\Http\Controllers\PostController;
+
+
+use App\Http\Controllers\{
+    AdminPostController,
+    NewsletterController,
+    PostCommentsController,
+    PostController
+};
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
