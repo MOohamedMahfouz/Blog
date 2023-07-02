@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequest;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
@@ -27,20 +28,10 @@ class AdminPostController extends Controller
 
 
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $attributes = $request->validate([
-            'title' => 'required',
-            'slug' => ['required',Rule::unique('posts','slug')],
-            'summary' => 'required',
-            'body' => 'required',
-            'thumbnail' => 'required|image',
-            'category_id' => ['required',Rule::exists('categories','id')],
-            'tags_id.*' => 'exists:tags,id',
-        ]);
-
+        $attributes = $request->validated();
         $tags_id = $request->tags_id;
-
         $attributes['user_id'] = auth()->id();
 
         $attributes['thumbnail'] = $request->file('thumbnail')->store('thumbnails','public');
@@ -93,10 +84,7 @@ class AdminPostController extends Controller
 
     public function destroy(Post $post)
     {
-
-        // dd($post);
         $post->delete();
-
         return back();
     }
 }
