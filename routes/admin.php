@@ -1,15 +1,10 @@
 <?php
 
-
-
 use App\Http\Controllers\{
     AdminPostController
 };
 
 use Illuminate\Support\Facades\Route;
-
-
-
 
 Route::resource('admin/posts',AdminPostController::class,[
     'names' => [

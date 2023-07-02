@@ -16,7 +16,6 @@ class PostController extends Controller
     }
     public function show(Post $post)
     {
-// $post = Post::findBySlugOrFail($slug);
         return view('posts.post',['post' => $post]);
     }
 }

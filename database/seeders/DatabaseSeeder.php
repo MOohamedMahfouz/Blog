@@ -20,14 +20,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create([
-            'name' => 'Mohamed Mahfouz'
+        $this->call([
+            UserSeeder::class,
+            PostSeeder::class,
         ]);
-        // \App\Models\Post::factory(20)->create();
-
-        $tags = Tag::factory(10)->create();
-        Post::factory(10)->create()->each(function($post) use($tags){
-            $post->tags()->attach($tags->random(2));
-        });
     }
 }
