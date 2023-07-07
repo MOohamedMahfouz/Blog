@@ -14,7 +14,7 @@
 
             <x-form.textarea name="body">{{ old('body') }}</x-form.textarea>
 
-            <x-form.input name="avatar" type="file" value="{{ old('thumbnail') }}" />
+            <x-form.input name="avatar" type="file" value="" />
             {{-- <input type="file" name="avatar" id="avatar"> --}}
 
             <x-form.input name="slug" type="text" value="{{ old('slug') }}" />

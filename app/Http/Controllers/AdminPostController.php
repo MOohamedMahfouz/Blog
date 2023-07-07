@@ -38,10 +38,7 @@ class AdminPostController extends Controller
         $tags_id = $request->tags_id;
         $attributes['user_id'] = auth()->id();
 
-        // $attributes['thumbnail'] = $request->file('thumbnail')->store('thumbnails','public');
-
         unset($attributes['tags_id']);
-        $avatar = $request->avatar;
         unset($attributes['avatar']);
 
 
@@ -83,19 +80,30 @@ class AdminPostController extends Controller
             'slug' => ['required',Rule::unique('posts','slug')->ignore($post->id)],
             'summary' => 'required',
             'body' => 'required',
-            'thumbnail' => 'image',
+            'avatar' => 'sometimes',
             'category_id' => ['required',Rule::exists('categories','id')],
             'tags_id.*' => 'exists:tags,id',
         ]);
 
         $attributes['user_id'] = auth()->id();
 
-
-        if (isset($attributes['thumbnail']))
-            $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails','public');
-
-
         unset($attributes['tags_id']);
+
+        unset($attributes['avatar']);
+
+
+        $temprorayFile = TemporaryFile::where('folder',request()->avatar)->first();
+
+        $post->clearMediaCollection('avatars');
+
+
+        if ($temprorayFile) {
+            $post->addMedia(storage_path('app/public/avatars/tmp/' . request()->avatar . '/' . $temprorayFile->filename))
+                ->toMediaCollection('avatars');
+
+            rmdir(storage_path('app/public/avatars/tmp/' . request()->avatar));
+            $temprorayFile->delete();
+        }
 
         $post->update($attributes);
 

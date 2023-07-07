@@ -28,8 +28,7 @@ class StoreRequest extends FormRequest
             'slug' => ['required',Rule::unique('posts','slug')],
             'summary' => 'required',
             'body' => 'required',
-            // 'thumbnail' => 'required|image',
-            'avatar' => 'required',
+            'avatar' => 'required|image',
             'category_id' => ['required',Rule::exists('categories','id')],
             'tags_id.*' => 'exists:tags,id',
         ];

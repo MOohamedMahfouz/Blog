@@ -15,10 +15,12 @@
 
             <x-form.textarea name="body">{{ old('body', $post->body) }}</x-form.textarea>
 
-            <x-form.input name="thumbnail" type="file" value="{{ old('thumbnail', $post->thumbnail) }}" />
+            <x-form.input name="avatar" type="file" />
 
             <div class="pb-3">
-                <img src="/storage/{{$post->thumbnail}}" alt="" width="500" height="500">
+                @foreach ($post->getMedia('avatars') as $media)
+                    <x-post-image :thumbnail="$media->id . '/' . $media->file_name" />
+                @endforeach
             </div>
 
             <x-form.input name="slug" type="text" value="{{ old('slug', $post->slug) }}" />
@@ -30,4 +32,23 @@
             <x-submit-button>Update</x-submit-button>
         </form>
     </x-panel>
+@endsection
+
+@section('scripts')
+    <script>
+        // Get a reference to the file input element
+        const inputElement = document.querySelector('input[id="avatar"]');
+
+        // Create a FilePond instance
+        const pond = FilePond.create(inputElement);
+        FilePond.setOptions({
+            server: {
+                url: '/upload',
+                headers: {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                }
+            }
+
+        });
+    </script>
 @endsection

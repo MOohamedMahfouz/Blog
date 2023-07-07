@@ -53,7 +53,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->role_id == 2 && (auth()->check() && $post->user_id == auth()->id());
+        return (auth()->check() && $post->user_id == auth()->id());
     }
 
     /**
