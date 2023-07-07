@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('temporary_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table -> string('title');
-            $table -> string('slug')->unique();
-            $table -> string('summary');
-            $table -> text('body');
-            // $table -> string('thumbnail')->nullable();
-            $table -> timestamp('published_at');
+            $table->string('folder');
+            $table->string('filename');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('temporary_files');
     }
 };

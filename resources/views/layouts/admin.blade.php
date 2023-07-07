@@ -8,6 +8,7 @@
     <meta name="description" content="">
 
     <!-- Tailwind -->
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
@@ -43,6 +44,7 @@
 
 
     </div>
-
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    @yield('scripts')
 </body>
 </html>

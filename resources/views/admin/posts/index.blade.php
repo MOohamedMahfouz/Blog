@@ -45,6 +45,7 @@
     </x-panel>
 @endsection
 
+
 @section('pagination')
         {{ $posts->links() }}
 @endsection

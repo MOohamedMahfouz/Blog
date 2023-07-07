@@ -5,7 +5,8 @@
 use App\Http\Controllers\{
     NewsletterController,
     PostCommentsController,
-    PostController
+    PostController,
+    UploadController
 };
 
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
+Route::post('upload',[UploadController::class,'store']);
+
 Route::controller(PostController::class) -> group(function(){
     Route::get('/','search')->name('search');
     Route::get('/posts/{post:slug}','show')->name('view-post')
@@ -39,7 +42,7 @@ Route::post('newsletter',NewsletterController::class);
 
 Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']);
 
-// Route::fallback(function () {
-//     return to_route('search');
-// });
+Route::fallback(function () {
+    return to_route('search');
+});
 

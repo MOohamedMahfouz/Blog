@@ -14,7 +14,8 @@
 
             <x-form.textarea name="body">{{ old('body') }}</x-form.textarea>
 
-            <x-form.input name="thumbnail" type="file" value="{{ old('thumbnail') }}" />
+            <x-form.input name="avatar" type="file" value="{{ old('thumbnail') }}" />
+            {{-- <input type="file" name="avatar" id="avatar"> --}}
 
             <x-form.input name="slug" type="text" value="{{ old('slug') }}" />
 
@@ -26,4 +27,24 @@
 
         </form>
     </x-panel>
+@endsection
+
+
+@section('scripts')
+    <script>
+        // Get a reference to the file input element
+        const inputElement = document.querySelector('input[id="avatar"]');
+
+        // Create a FilePond instance
+        const pond = FilePond.create(inputElement);
+        FilePond.setOptions({
+            server: {
+                url: '/upload',
+                headers: {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                }
+            }
+
+        });
+    </script>
 @endsection

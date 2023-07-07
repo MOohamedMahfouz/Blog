@@ -22,7 +22,7 @@ class PostFactory extends Factory
             'title' => $this -> faker-> sentence(2),
             'body' => $this -> faker -> paragraph(10),
             'summary' => $this -> faker -> paragraph(1),
-            'thumbnail' => 'thumbnails/pexel.jpg',
+            // 'thumbnail' => 'thumbnails/pexel.jpg',
             'category_id'=> Category::factory(),
             'user_id'=> User::factory(),
             'slug'=> $this -> faker -> slug(),

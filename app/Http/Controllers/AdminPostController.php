@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRequest;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\TemporaryFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Validation\Rule;
@@ -33,16 +34,28 @@ class AdminPostController extends Controller
     {
         $this->authorize('create',Post::class);
 
-        
         $attributes = $request->validated();
         $tags_id = $request->tags_id;
         $attributes['user_id'] = auth()->id();
 
-        $attributes['thumbnail'] = $request->file('thumbnail')->store('thumbnails','public');
+        // $attributes['thumbnail'] = $request->file('thumbnail')->store('thumbnails','public');
 
         unset($attributes['tags_id']);
+        $avatar = $request->avatar;
+        unset($attributes['avatar']);
+
 
         $post = Post::create($attributes);
+
+        $temprorayFile = TemporaryFile::where('folder',$request->avatar)->first();
+
+        if ($temprorayFile) {
+            $post->addMedia(storage_path('app/public/avatars/tmp/' . $request->avatar . '/' . $temprorayFile->filename))
+                ->toMediaCollection('avatars');
+
+            rmdir(storage_path('app/public/avatars/tmp/' . $request->avatar));
+            $temprorayFile->delete();
+        }
 
         $post->tags()->attach($tags_id);
 
@@ -95,10 +108,7 @@ class AdminPostController extends Controller
 
     public function destroy(Post $post)
     {
-
         $this->authorize('delete',$post);
-
-
         $post->delete();
         return back();
     }

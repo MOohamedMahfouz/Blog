@@ -22,7 +22,7 @@ class Newsletter
 
         return $mailchimp->setConfig([
             'apiKey' => config('services.mailchimp.key'),
-            'server' => 'us13'
+            'server' => ''
         ]);
     }
 }
