@@ -16,6 +16,10 @@ class PostController extends Controller
     }
     public function show(Post $post)
     {
-        return view('posts.post',['post' => $post]);
+        $imageItems = $post->getMedia('avatars');
+        return view('posts.post',[
+            'post' => $post,
+            'mediaItems' => $imageItems
+        ]);
     }
 }

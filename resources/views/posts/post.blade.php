@@ -5,7 +5,9 @@
         <!-- Article Image -->
 
 
-        <x-post-image :thumbnail="$post->thumbnail"/>
+        @foreach($mediaItems as $media)
+            <x-post-image :thumbnail="$media->id.'/'.$media->file_name"/>
+        @endforeach
 
         <div class="bg-white flex flex-col justify-start p-6">
             <a href="#" class="text-blue-700 text-sm font-bold uppercase pb-4">{{ $post->category->name }}</a>

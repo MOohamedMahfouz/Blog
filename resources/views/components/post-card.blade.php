@@ -2,22 +2,29 @@
     <!-- Article Image -->
 
 
-    <x-post-image :thumbnail="$post->thumbnail"/>
+    @foreach ($post->getMedia('avatars') as $media)
+        <x-post-image :thumbnail="$media->id . '/' . $media->file_name" />
+    @endforeach
 
     <div class="bg-white flex flex-col justify-start p-6">
-        <a href="{{route('view-post',$post)}}" class="text-blue-700 text-sm font-bold uppercase pb-1">{{$post ->  category -> name}}</a>
+        <a href="{{ route('view-post', $post) }}"
+            class="text-blue-700 text-sm font-bold uppercase pb-1">{{ $post->category->name }}</a>
         <div class="justify-between space-x-2.5">
             @foreach ($post->tags as $tag)
-            <a href="{{route('view-post',$post)}}" class="text-red-500 text-sm font-bold uppercase pb-4">#{{$tag->name}}</a>
+                <a href="{{ route('view-post', $post) }}"
+                    class="text-red-500 text-sm font-bold uppercase pb-4">#{{ $tag->name }}</a>
             @endforeach
         </div>
-        <a href="{{route('view-post',$post)}}" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post -> title }}</a>
-        <p href="{{route('view-post',$post)}}" class="text-sm pb-3">
-            By <a href="{{route('search').'?author='.$post->user->username}}" class="font-semibold hover:text-gray-800">{{$post -> user -> name}}</a>, Published on {{$post->published_at->diffForHumans();}}
+        <a href="{{ route('view-post', $post) }}"
+            class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>
+        <p href="{{ route('view-post', $post) }}" class="text-sm pb-3">
+            By <a href="{{ route('search') . '?author=' . $post->user->username }}"
+                class="font-semibold hover:text-gray-800">{{ $post->user->name }}</a>, Published on
+            {{ $post->published_at->diffForHumans() }}
         </p>
-        <a href="{{route('view-post',$post)}}" class="pb-6">{{ $post -> summary }}</a>
+        <a href="{{ route('view-post', $post) }}" class="pb-6">{{ $post->summary }}</a>
 
-        <x-post-button title="Continue Reading" :href="route('view-post',$post)"/>
+        <x-post-button title="Continue Reading" :href="route('view-post', $post)" />
 
     </div>
 </article>
