@@ -30,9 +30,11 @@
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
                         </li>
                         <li class="{{Route::is('create-admin-post') ? 'bg-blue-400' : ''}}">
+                            @can('create', App\Models\Post::class)
                             <a href="{{route('create-admin-post')}}"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Publish
                                 New Post</a>
+                            @endcan
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" class="text-gray-700 block px-4 py-2 text-sm"

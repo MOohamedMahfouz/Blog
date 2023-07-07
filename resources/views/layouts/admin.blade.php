@@ -36,6 +36,9 @@
 
             @yield('content')
 
+
+            @yield('pagination')
+
         </section>
 
 

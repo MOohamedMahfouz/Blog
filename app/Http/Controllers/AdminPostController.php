@@ -20,6 +20,7 @@ class AdminPostController extends Controller
     }
     public function create()
     {
+        $this->authorize('create',Post::class);
         return view('admin.posts.create',[
             'categories' => Category::all(),
             'tags' => Tag::all(),
@@ -30,6 +31,9 @@ class AdminPostController extends Controller
 
     public function store(StoreRequest $request)
     {
+        $this->authorize('create',Post::class);
+
+        
         $attributes = $request->validated();
         $tags_id = $request->tags_id;
         $attributes['user_id'] = auth()->id();
@@ -48,12 +52,19 @@ class AdminPostController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update',$post);
+
         return view('admin.posts.edit',['post' => $post , 'categories' => Category::all() , 'tags' => Tag::all()]);
     }
 
 
     public function update(Post $post)
     {
+
+        $this->authorize('update',$post);
+
+
+
         $attributes = request()->validate([
             'title' => 'required',
             'slug' => ['required',Rule::unique('posts','slug')->ignore($post->id)],
@@ -84,6 +95,10 @@ class AdminPostController extends Controller
 
     public function destroy(Post $post)
     {
+
+        $this->authorize('delete',$post);
+
+
         $post->delete();
         return back();
     }
