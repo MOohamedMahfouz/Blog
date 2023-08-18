@@ -5,9 +5,10 @@
         <!-- Article Image -->
 
 
-        @foreach($mediaItems as $media)
+        {{-- @foreach($mediaItems as $media)
             <x-post-image :thumbnail="$media->id.'/'.$media->file_name"/>
-        @endforeach
+        @endforeach --}}
+        <img src="{{$greyImageUrl}}" alt="hi">
 
         <div class="bg-white flex flex-col justify-start p-6">
             <a href="#" class="text-blue-700 text-sm font-bold uppercase pb-4">{{ $post->category->name }}</a>

@@ -7,10 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Tag;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Post extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('grey')
+            ->greyscale()
+            ->quality(80)
+            ->withResponsiveImages();
+    }
+
 
     protected $dates = ['created_at', 'updated_at', 'published_at'];
     protected $with = ['category', 'user', 'tags'];
@@ -69,4 +80,8 @@ class Post extends Model implements HasMedia
             )
         );
     }
+
+
+
+
 }

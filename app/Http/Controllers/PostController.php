@@ -17,9 +17,12 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $imageItems = $post->getMedia('avatars');
+        $image = $imageItems[0];
+        $greyUrl = $image->getUrl('grey');
         return view('posts.post',[
             'post' => $post,
-            'mediaItems' => $imageItems
+            'mediaItems' => $imageItems,
+            'greyImageUrl' => $greyUrl
         ]);
     }
 }
