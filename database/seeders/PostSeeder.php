@@ -16,11 +16,9 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        // for ($i = 0 ; $i < 10 ; $i++) {
-            $tags = Tag::factory(10)->create();
-            Post::factory(10)->create()->each(function($post) use($tags){
-                $post->tags()->attach($tags->random(2));
-            });
-        // }
+        $tags = Tag::factory(10)->create();
+        Post::factory(10)->create()->each(function($post) use($tags){
+            $post->tags()->attach($tags->random(2));
+        });
     }
 }
