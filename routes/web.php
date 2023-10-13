@@ -22,8 +22,16 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Intervention\Image\ImageManagerStatic as Image;
 
-
+Route::get('/hi', function() {
+    $img = Image::make('foo.jpg')->resize(300, 200);
+    $img->brightness(35);
+    $img->blur(50);
+    $img->colorize(0, 30, 0);
+    $img->rotate(-45);
+    return $img->response('jpg');
+});
 
 Auth::routes();
 

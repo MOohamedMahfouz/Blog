@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use Intervention\Image\ImageManagerStatic as Image;
 class PostController extends Controller
 {
     public function search(Request $request)
